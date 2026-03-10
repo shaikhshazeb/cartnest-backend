@@ -36,13 +36,13 @@ public class AuthControllers {
 		String token = authServ.generateToken(user);
 		
 		// Create a cookies
-		Cookie cookie = new Cookie("authToken",token);
+		Cookie cookie = new Cookie("authToken", token);
 
 		cookie.setHttpOnly(true);
-		cookie.setSecure(false);
+		cookie.setSecure(true);        // production me true
 		cookie.setPath("/");
 		cookie.setMaxAge(3600);
-		
+
 		resp.addCookie(cookie);
 		
 		Map<String, Object> responseBody = new HashMap<>();
