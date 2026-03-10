@@ -1,0 +1,6 @@
+package com.sss.galaxycart.entities;
+
+public enum Role {
+	
+	ADMIN, CUSTOMER 
+}
