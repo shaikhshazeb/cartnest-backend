@@ -15,7 +15,7 @@ import com.sss.cartnest.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "https://cart-nest-ecommerce.vercel.app")
+@CrossOrigin(origins = "https://cart-nest-ecommerce.vercel.app", allowCredentials = "true")
 public class UserController {
 	
 	@Autowired

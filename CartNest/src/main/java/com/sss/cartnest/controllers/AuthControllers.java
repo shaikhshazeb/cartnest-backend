@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "https://cart-nest-ecommerce.vercel.app")
+@CrossOrigin(origins = "https://cart-nest-ecommerce.vercel.app", allowCredentials = "true")
 public class AuthControllers {
 	
 	@Autowired
