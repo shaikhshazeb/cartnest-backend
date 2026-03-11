@@ -1,5 +1,4 @@
-package com.sss.cartnest.config;
-
+package com.cartnest.backend.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +31,8 @@ public class CorsConfig {
     private static final List<String> ALLOWED_ORIGINS = List.of(
         "http://localhost:5173",          // Vite dev server
         "http://localhost:3000",          // CRA / alternative dev port
-        "https://cartnest.vercel.app",    // ← replace with YOUR actual Vercel URL
+        "http://localhost:8080",          // your current dev origin
+        "https://cartnest.vercel.app",    // replace with your actual Vercel URL
         "https://cartnest-git-main-yourname.vercel.app"  // preview deployments
     );
 
