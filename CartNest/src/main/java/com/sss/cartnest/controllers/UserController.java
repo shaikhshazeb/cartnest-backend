@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import com.sss.cartnest.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "https://cartnest-sigma.vercel.app", allowCredentials = "true")
 public class UserController {
 	
 	@Autowired
