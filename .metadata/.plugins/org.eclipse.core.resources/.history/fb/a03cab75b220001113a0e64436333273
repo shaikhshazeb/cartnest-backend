@@ -1,0 +1,13 @@
+package com.sss.cartnest.repositories;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sss.cartnest.entities.Category;
+
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
+	
+	Optional<Category> findByCategoryName(String category_nam);
+
+}

@@ -1,0 +1,24 @@
+package com.sss.cartnest.entities;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="products")
+public class Product {
+	
+	
+	private int product_id;
+	private String name;
+	private String description;
+	private double price;
+	private int stock;
+	private Category category_id;
+	@Column
+	private LocalDateTime created_at = LocalDateTime.now();
+	@Column
+	private LocalDateTime updated_at = LocalDateTime.now();
+}

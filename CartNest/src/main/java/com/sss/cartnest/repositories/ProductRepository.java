@@ -1,0 +1,13 @@
+package com.sss.cartnest.repositories;
+
+import java.util.*;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sss.cartnest.entities.Product;
+
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+	
+	List<Product>findByCategory_id(int categoryid);
+
+}
