@@ -15,32 +15,19 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id")
 	private int id;
-	@Column(nullable = false)
-	private String category_name;
+
+	@Column(name = "category_name", nullable = false)
+	private String categoryName;
 	
-	public Category() {
-		// TODO Auto-generated constructor stub
+	public Category() {}
+
+	public Category(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
-	public Category(String category_name) {
-		super();
-		this.category_name = category_name;
-	}
+	public int getId() { return id; }
+	public void setId(int id) { this.id = id; }
 
-	public int getId() {
-	    return id;
-	}
-
-	public void setId(int id) {
-	    this.id = id;
-	}
-
-	public String getCategory_name() {
-		return category_name;
-	}
-
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
-	}
-	
+	public String getCategoryName() { return categoryName; }
+	public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
 }
