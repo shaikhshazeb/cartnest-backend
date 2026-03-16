@@ -25,5 +25,3 @@ spring.web.cors.allowed-origins=https://cart-nest-ecommerce.vercel.app
 spring.web.cors.allowed-methods=GET,POST,PUT,DELETE,OPTIONS
 spring.web.cors.allowed-headers=*
 spring.web.cors.allow-credentials=true
-
-logging.level.org.springframework=DEBUG
