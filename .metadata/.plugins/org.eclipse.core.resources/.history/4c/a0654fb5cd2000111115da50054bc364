@@ -8,6 +8,6 @@ import com.sss.cartnest.entities.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
-	List<Product> findByCategory_Category_id(int categoryid);
+	List<Product>findByCategory_id(int categoryid);
 
 }
