@@ -32,13 +32,13 @@ public class ProductController {
 
                 Map<String, Object> productDetails = new HashMap<>();
 
-                productDetails.put("product_id", product.getProductId());
+                productDetails.put("product_id", product.getProduct_id());
                 productDetails.put("name", product.getName());
                 productDetails.put("description", product.getDescription());
                 productDetails.put("price", product.getPrice());
                 productDetails.put("stock", product.getStock());
 
-                List<String> images = productService.getProductImages(product.getProductId());
+                List<String> images = productService.getProductImages(product.getProduct_id());
                 productDetails.put("images", images);
 
                 productList.add(productDetails);
