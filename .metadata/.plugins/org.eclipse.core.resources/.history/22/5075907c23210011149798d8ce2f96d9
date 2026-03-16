@@ -12,13 +12,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "products")
+@Table(name="products")
 public class Product {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="product_id")
-	private int productId;
+	private int product_id;
 	@Column(nullable = false)
 	private String name;
 	@Column(columnDefinition = "TEXT")
@@ -28,17 +27,19 @@ public class Product {
 	@Column(nullable = false)
 	private int stock;
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name="category_id")
 	private Category category;
 	@Column
 	private LocalDateTime created_at = LocalDateTime.now();
 	@Column
 	private LocalDateTime updated_at = LocalDateTime.now();
-
+	
+	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
 	public Product(String name, String description, double price, int stock, Category category,
 			LocalDateTime created_at, LocalDateTime updated_at) {
 		super();
@@ -51,68 +52,55 @@ public class Product {
 		this.updated_at = updated_at;
 	}
 
-	public int getProductId() {
-		return productId;
+	
+	public int getProduct_id() {
+		return product_id;
 	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public double getPrice() {
 		return price;
 	}
-
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
 	public int getStock() {
 		return stock;
 	}
-
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-
 	public Category getCategory() {
 		return category;
 	}
-
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
-
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-
 	public LocalDateTime getUpdated_at() {
 		return updated_at;
 	}
-
 	public void setUpdated_at(LocalDateTime updated_at) {
 		this.updated_at = updated_at;
 	}
-
+	
+	
 }
