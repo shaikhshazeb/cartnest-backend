@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.sss.cartnest.entities.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    
-    List<Product> findByCategoryId(int categoryId);
+	
+	List<Product> findByCategory_Category_id(int categoryid);
+
 }
