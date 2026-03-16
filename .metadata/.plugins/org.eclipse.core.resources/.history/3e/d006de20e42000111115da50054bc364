@@ -29,7 +29,7 @@ public class ProductService {
 			Optional<Category> ctg = ctg_repo.findByCategoryName(categoryName);
 			if(ctg.isPresent()) {
 				Category category = ctg.get();
-				return prod_repo.findByCategoryId(category.getId());
+				return prod_repo.findByCategory_Category_id(category.getId());
 			} else {
 				throw new RuntimeException("Category Id not found");
 			}
