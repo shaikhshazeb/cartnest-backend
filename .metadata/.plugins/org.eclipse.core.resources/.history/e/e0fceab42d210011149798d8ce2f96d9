@@ -10,6 +10,6 @@ import com.sss.cartnest.entities.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
     
-	@Query("SELECT c FROM Category c WHERE c.categoryName = :name")
-	Optional<Category> findByCategoryName(@Param("name") String name);
+    @Query("SELECT c FROM Category c WHERE c.category_name = :name")
+    Optional<Category> findByCategoryName(@Param("name") String name);
 }
