@@ -60,7 +60,6 @@ public class SecurityConfig {
                 // Public endpoints — no token needed
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/users/register").permitAll()
-                .requestMatchers("/api/products/**").permitAll()
 
                 // Lock everything else behind authentication
                 .anyRequest().authenticated()
