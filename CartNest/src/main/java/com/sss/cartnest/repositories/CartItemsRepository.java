@@ -1,0 +1,17 @@
+package com.sss.cartnest.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.sss.cartnest.entities.CartItems;
+
+public interface CartItemsRepository extends JpaRepository<CartItems, Integer> {
+
+	@Query("SELECT COUNT(c) FROM CartItems c WHERE c.user.user_id = :userId")
+	int countCartItemsByUserId(@Param("userId") int userId);
+
+	@Query("SELECT u.user_id FROM User u WHERE u.username = :username")
+	int findUserIdByUsername(@Param("username") String username);
+
+}

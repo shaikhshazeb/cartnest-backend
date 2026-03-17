@@ -1,0 +1,24 @@
+package com.sss.cartnest.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.repositories.ProductImageRepository;
+import com.sss.cartnest.repositories.ProductRepository;
+import com.sss.cartnest.repositories.UserRepository;
+
+@Service
+public class CartService {
+	
+	@Autowired
+	private UserRepository user_repo;
+	
+	@Autowired
+	private ProductRepository prod_repo;
+	
+	@Autowired
+	private ProductImageRepository prod_img_repo;
+	
+	
+	
+}

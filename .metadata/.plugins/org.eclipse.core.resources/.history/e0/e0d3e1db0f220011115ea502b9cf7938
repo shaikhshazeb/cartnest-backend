@@ -1,0 +1,20 @@
+package com.sss.cartnest.services;
+
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.repositories.ProductImageRepository;
+import com.sss.cartnest.repositories.ProductRepository;
+import com.sss.cartnest.repositories.UserRepository;
+
+@Service
+public class CartService {
+	
+	private UserRepository user_repo;
+	
+	private ProductRepository prod_repo;
+	
+	private ProductImageRepository prod_img_repo;
+	
+	
+	
+}

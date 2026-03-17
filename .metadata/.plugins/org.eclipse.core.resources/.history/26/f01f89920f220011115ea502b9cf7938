@@ -1,0 +1,8 @@
+package com.sss.cartnest.controllers;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CartController {
+
+}

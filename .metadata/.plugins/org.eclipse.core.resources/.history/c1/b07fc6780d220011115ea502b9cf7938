@@ -1,0 +1,9 @@
+package com.sss.cartnest.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sss.cartnest.entities.CartItems;
+
+public interface CartRepository extends JpaRepository<CartItems, Integer> {
+
+}

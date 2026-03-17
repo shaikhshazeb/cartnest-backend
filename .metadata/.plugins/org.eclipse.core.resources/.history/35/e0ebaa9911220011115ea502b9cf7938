@@ -1,0 +1,42 @@
+package com.sss.cartnest.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.entities.User;
+import com.sss.cartnest.repositories.CartRepository;
+import com.sss.cartnest.repositories.ProductImageRepository;
+import com.sss.cartnest.repositories.ProductRepository;
+import com.sss.cartnest.repositories.UserRepository;
+
+@Service
+public class CartService {
+	
+	@Autowired
+	private CartRepository cart_repo;
+	
+	@Autowired
+	private UserRepository user_repo;
+	
+	@Autowired
+	private ProductRepository prod_repo;
+	
+	@Autowired
+	private ProductImageRepository prod_img_repo;
+	
+	
+	//get the total cart items for a user
+	public int getCartItemCount(int userId) {
+		return cart_repo.countTotalItems(userId);
+	}
+	
+	//Add items to the cart
+	
+	public void addToCart(int userId, int productId, int quantity) {
+		
+		User user = user_repo.findById(userId).orElseThrow( () -> new IllegalArgumentException("user id not found" + userId));
+		
+		Product product = prod_repo.findById(productId).orElseThrow( () -> new IllegalArgumentException("product id not found" + productId));
+	}
+	
+}

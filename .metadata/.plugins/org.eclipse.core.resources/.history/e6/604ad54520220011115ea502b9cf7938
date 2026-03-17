@@ -1,0 +1,171 @@
+package com.sss.cartnest.services;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.entities.CartItems;
+import com.sss.cartnest.entities.Product;
+import com.sss.cartnest.entities.ProductImage;
+import com.sss.cartnest.entities.User;
+import com.sss.cartnest.repositories.CartRepository;
+import com.sss.cartnest.repositories.ProductImageRepository;
+import com.sss.cartnest.repositories.ProductRepository;
+import com.sss.cartnest.repositories.UserRepository;
+
+@Service
+public class CartService {
+	
+	@Autowired
+	private CartRepository cart_repo;
+	
+	@Autowired
+	private UserRepository user_repo;
+	
+	@Autowired
+	private ProductRepository prod_repo;
+	
+	@Autowired
+	private ProductImageRepository prod_img_repo;
+	
+	
+	//get the total cart items for a user
+	public int getCartItemCount(int userId) {
+		return cart_repo.countTotalItems(userId);
+	}
+	
+	//Add items to the cart
+	
+	public void addToCart(int userId, int productId, int quantity) {
+		
+		User user = user_repo.findById(userId).orElseThrow( () -> new IllegalArgumentException("user id not found" + userId));
+		
+		Product product = prod_repo.findById(productId).orElseThrow( () -> new IllegalArgumentException("product id not found" + productId));
+		
+		Optional<CartItems> existingItem = cart_repo.findByUserAndProduct(userId, productId);
+		
+		if(existingItem.isPresent()) {
+			CartItems cartItems = existingItem.get();
+			cartItems.setQuantity(cartItems.getQuantity() + quantity);
+			cart_repo.save(cartItems);
+		} else {
+			CartItems newItems = new CartItems(user, product, quantity);
+			cart_repo.save(newItems);
+		}
+		
+	}
+	
+	// Get Cart Items for a User
+	public Map<String, Object> getCartItems(int userId) {
+	    // Fetch the cart items for the user with product details
+	    List<CartItems> cartItems = cart_repo.findCartItemsWithProductDetails(userId);
+
+	    // Create a response map to hold the cart details
+	    Map<String, Object> response = new HashMap<>();
+	    User user = user_repo.findById(userId)
+	            .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+	    response.put("username", user.getUsername());
+	    response.put("role", user.getRole().toString());
+
+	    // List to hold the product details
+	    List<Map<String, Object>> products = new ArrayList<>();
+	    int overallTotalPrice = 0;
+
+	    for (CartItems cartItem : cartItems) {
+	        Map<String, Object> productDetails = new HashMap<>();
+
+	        // Get product details
+	        Product product = cartItem.getProduct();
+
+	        // Fetch product images from the ProductImageRepository
+	        List<ProductImage> productImages = prod_img_repo.findByProduct_ProductId(product.getProductId());
+	        String imageUrl = null;
+
+	        if (productImages != null && !productImages.isEmpty()) {
+	            // If there are images, get the first image's URL
+	            imageUrl = productImages.get(0).getImage_url();
+	        } else {
+	            // Set a default image if no images are available
+	            imageUrl = "default-image-url"; // You can replace this with your default image URL
+	        }
+
+	        // Populate product details into the map
+	        productDetails.put("product_id", product.getProductId());
+	        productDetails.put("image_url", imageUrl);
+	        productDetails.put("name", product.getName());
+	        productDetails.put("description", product.getDescription());
+	        productDetails.put("price_per_unit", product.getPrice());
+	        productDetails.put("quantity", cartItem.getQuantity());
+	        productDetails.put("total_price", cartItem.getQuantity()* product.getPrice());
+
+	        // Add the product details to the products list
+	        products.add(productDetails);
+
+	        // Add to the overall total price
+	        overallTotalPrice += cartItem.getQuantity() * product.getPrice();
+	    }
+
+	    // Prepare the final cart response
+	    Map<String, Object> cart = new HashMap<>();
+	    cart.put("products", products);
+	    cart.put("overall_total_price", overallTotalPrice);
+
+	    // Add the cart details to the response
+	    response.put("cart", cart);
+
+	    return response;
+	}
+	
+	//update the cart
+	
+		public void updateCartItemsQuantity(int userId, int productId, int quantity) {
+			
+			User user = user_repo.findById(userId).orElseThrow( () -> new IllegalArgumentException("user id not found" + userId));
+			
+			Product product = prod_repo.findById(productId).orElseThrow( () -> new IllegalArgumentException("product id not found" + productId));
+			
+			Optional<CartItems> existingItem = cart_repo.findByUserAndProduct(userId, productId);
+			
+			if(existingItem.isPresent()) {
+				CartItems cartItems = existingItem.get();
+				if(quantity == 0) {
+					deleteCartItem(userId, productId);
+				}
+				else {
+					cartItems.setQuantity(quantity);
+					cart_repo.save(cartItems);
+				}
+			} 
+			
+		}
+		
+		//Delete the cart
+		
+			public void deleteCartItem(int userId, int productId) {
+				
+				User user = user_repo.findById(userId).orElseThrow( () -> new IllegalArgumentException("user id not found" + userId));
+				
+				Product product = prod_repo.findById(productId).orElseThrow( () -> new IllegalArgumentException("product id not found" + productId));
+				
+				Optional<CartItems> existingItem = cart_repo.findByUserAndProduct(userId, productId);
+				
+				if(existingItem.isPresent()) {
+					CartItems cartItems = existingItem.get();
+					if(quantity == 0) {
+						deleteCartItem(userId, productId);
+					}
+					else {
+						cartItems.setQuantity(quantity);
+						cart_repo.save(cartItems);
+					}
+				} 
+				
+			}
+	
+}
