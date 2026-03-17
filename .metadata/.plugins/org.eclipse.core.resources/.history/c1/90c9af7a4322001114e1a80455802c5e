@@ -1,0 +1,59 @@
+package com.sss.cartnest.entities;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="orders")
+public class Order {
+	
+	@Id
+	@Column(name = "order_id")
+	private String orderId;  // Razorpay order ID string hai
+	
+	@Column(name = "user_id", nullable = false)
+	private int userId;
+	
+	@Column(name = "total_amount", nullable = false)
+	private BigDecimal totalAmount;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private OrderStatus status;
+	
+	@Column
+	private LocalDateTime created_at = LocalDateTime.now();
+	@Column
+	private LocalDateTime updated_at = LocalDateTime.now();
+	
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<OrderItem> orderItem;
+	
+	public Order() {}
+
+	public String getOrderId() { return orderId; }
+	public void setOrderId(String orderId) { this.orderId = orderId; }
+	public int getUserId() { return userId; }
+	public void setUserId(int userId) { this.userId = userId; }
+	public BigDecimal getTotalAmount() { return totalAmount; }
+	public void setTotalAmount(BigDecimal totalAmount) { this.totalAmount = totalAmount; }
+	public OrderStatus getStatus() { return status; }
+	public void setStatus(OrderStatus status) { this.status = status; }
+	public LocalDateTime getCreated_at() { return created_at; }
+	public void setCreated_at(LocalDateTime created_at) { this.created_at = created_at; }
+	public LocalDateTime getUpdated_at() { return updated_at; }
+	public void setUpdated_at(LocalDateTime updated_at) { this.updated_at = updated_at; }
+	public List<OrderItem> getOrderItem() { return orderItem; }
+	public void setOrderItem(List<OrderItem> orderItem) { this.orderItem = orderItem; }
+}

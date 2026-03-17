@@ -1,0 +1,9 @@
+package com.sss.cartnest.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.sss.cartnest.entities.OrderItem;
+
+public interface OrderItemRepository  extends JpaRepository<OrderItem, Integer>{
+
+}

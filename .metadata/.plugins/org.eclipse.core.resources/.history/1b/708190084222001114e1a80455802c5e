@@ -1,0 +1,26 @@
+package com.sss.cartnest.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.repositories.CartRepository;
+import com.sss.cartnest.repositories.OrderItemRepository;
+import com.sss.cartnest.repositories.OrderRepository;
+
+@Service
+public class PaymentService {
+	
+	@Value("${razorpay.key_id}")
+	private String razorpayKeyId;
+	
+	@Value("${razorpay.key_secret}")
+	private String razorpayKeySecret;
+	
+	@Autowired
+	private  OrderRepository ord_rep;
+	@Autowired
+	private  OrderItemRepository ord_item_repo;
+	@Autowired
+	private  CartRepository cart_repo;
+}

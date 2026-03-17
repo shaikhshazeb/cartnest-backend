@@ -1,0 +1,41 @@
+package com.sss.cartnest.entities;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="orders")
+public class Oreder {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "order_id" )
+	private int orderId;
+	
+	@Column(name = "user_id", nullable = false)
+	private int userId;
+	
+	@Column(name = "total_amount", nullable = false)
+	private BigDecimal totalAmount;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false)
+	private OrderStatus status;
+	
+	@Column
+	private LocalDateTime created_at = LocalDateTime.now();
+	@Column
+	private LocalDateTime updated_at = LocalDateTime.now();
+	
+	private List<OrderItem> orderItem;
+}

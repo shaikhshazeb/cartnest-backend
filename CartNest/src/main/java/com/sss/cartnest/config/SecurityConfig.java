@@ -62,6 +62,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/users/register").permitAll()
                 .requestMatchers("/api/products/**").permitAll()
                 .requestMatchers("/api/cart/**").permitAll()
+                .requestMatchers("/api/payment/**").permitAll()
                 // Lock everything else behind authentication
                 .anyRequest().authenticated()
             );

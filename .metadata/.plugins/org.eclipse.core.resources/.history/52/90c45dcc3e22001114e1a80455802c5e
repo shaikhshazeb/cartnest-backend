@@ -1,0 +1,5 @@
+package com.sss.cartnest.repositories;
+
+public interface OrderRepository {
+
+}
