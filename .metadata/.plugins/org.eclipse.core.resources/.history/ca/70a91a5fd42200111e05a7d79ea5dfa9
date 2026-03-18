@@ -59,7 +59,7 @@ public class SecurityConfig {
 
                 // Public endpoints — no token needed
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/users/**").permitAll()
+                .requestMatchers("/api/users/register").permitAll()
                 .requestMatchers("/api/products/**").permitAll()
                 .requestMatchers("/api/cart/**").permitAll()
                 .requestMatchers("/api/payment/**").permitAll()
