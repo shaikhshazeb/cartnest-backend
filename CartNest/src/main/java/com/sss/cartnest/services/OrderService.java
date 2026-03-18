@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.sss.cartnest.entities.OrderItem;
 import com.sss.cartnest.entities.Product;
 import com.sss.cartnest.entities.ProductImage;
@@ -19,7 +18,7 @@ import com.sss.cartnest.repositories.ProductRepository;
 
 @Service
 public class OrderService {
-	
+
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 
@@ -29,45 +28,37 @@ public class OrderService {
 	@Autowired
 	private ProductImageRepository productImageRepository;
 
-
 	public Map<String, Object> getOrdersForUser(User user) {
-	    // Fetch all successful order items for the user
-	    List<OrderItem> orderItems = orderItemRepository.findSuccessfulOrderItemsByUserId(user.getUser_id());
+		List<OrderItem> orderItems = orderItemRepository.findSuccessfulOrderItemsByUserId(user.getUser_id());
 
-	    // Prepare the response map
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("username", user.getUsername());
-	    response.put("role", user.getRole()); // Directly use the role as it is an enum mapped to a
+		Map<String, Object> response = new HashMap<>();
+		response.put("username", user.getUsername());
+		response.put("role", user.getRole());
 
-	    // Transform order items into a list of product details
-	    List<Map<String, Object>> products = new ArrayList<>();
-	    for (OrderItem item : orderItems) {
-	        Product product = productRepository.findById(item.getProductId()).orElse(null);
-	        if (product == null) {
-	            continue; // Skip if the product does not exist
-	        }
+		List<Map<String, Object>> products = new ArrayList<>();
 
-	        // Fetch the product image (if available)
-	        List<ProductImage> images = productImageRepository.findByProduct_ProductId(product.getProductId());
-	        String imageUrl = images.isEmpty() ? null : images.get(0).getImage_url();
+		for (OrderItem item : orderItems) {
+			Product product = productRepository.findById(item.getProductId()).orElse(null);
+			if (product == null) continue;
 
-	        // Create a product details map
-	        Map<String, Object> productDetails = new HashMap<>();
-	        productDetails.put("order_id", item.getOrder().getOrderId());
-	        productDetails.put("quantity", item.getQuantity());
-	        productDetails.put("total_price", item.getTotalPrice());
-	        productDetails.put("image_url", imageUrl);
-	        productDetails.put("product_id", product.getProductId());
-	        productDetails.put("name", product.getName());
-	        productDetails.put("description", product.getDescription());
-	        productDetails.put("price_per_unit", item.getPricePerUnit());
+			List<ProductImage> images = productImageRepository.findByProduct_ProductId(product.getProductId());
+			String imageUrl = images.isEmpty() ? null : images.get(0).getImage_url();
 
-	        products.add(productDetails);
-	    }
+			Map<String, Object> productDetails = new HashMap<>();
+			productDetails.put("order_id", item.getOrder().getOrderId());
+			productDetails.put("status", item.getOrder().getStatus().toString());
+			productDetails.put("quantity", item.getQuantity());
+			productDetails.put("total_price", item.getTotalPrice());
+			productDetails.put("image_url", imageUrl);
+			productDetails.put("product_id", product.getProductId());
+			productDetails.put("name", product.getName());
+			productDetails.put("description", product.getDescription());
+			productDetails.put("price_per_unit", item.getPricePerUnit());
 
-	    // Add the products list to the response
-	    response.put("products", products);
+			products.add(productDetails);
+		}
 
-	    return response;
+		response.put("products", products);
+		return response;
 	}
 }
