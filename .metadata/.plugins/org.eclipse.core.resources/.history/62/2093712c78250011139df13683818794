@@ -1,0 +1,50 @@
+package com.sss.cartnest.adminservices;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.entities.Category;
+import com.sss.cartnest.entities.Product;
+import com.sss.cartnest.entities.ProductImage;
+import com.sss.cartnest.repositories.CategoryRepository;
+import com.sss.cartnest.repositories.ProductImageRepository;
+import com.sss.cartnest.repositories.ProductRepository;
+
+@Service
+public class AdminProductService {
+	
+	@Autowired
+	private CategoryRepository ctg_repo;
+	@Autowired
+	private ProductRepository prod_repo;
+	
+	@Autowired
+	private ProductImageRepository prod_img_repo;
+	
+	public Product addProductWithImage(String name, String description, double price, int stock, int categoryId, String imageUrl) {
+		
+		Optional<Category> category = ctg_repo.findById(categoryId);
+		if(category.isEmpty()) {
+			throw new IllegalArgumentException("category Id not found");
+		}
+		
+		// Creat and save the Product 
+		Product product = new Product(name, description, price, stock, category.get(), LocalDateTime.now(), LocalDateTime.now());
+		Product savedProduct = prod_repo.save(product);
+		
+		//create and save the product image
+		if(imageUrl != null && !imageUrl.isEmpty()) {
+			ProductImage prodImg = new ProductImage(savedProduct, imageUrl);
+			prod_img_repo.save(prodImg);
+		} else {
+			throw new IllegalArgumentException("product image cannot be empty");
+		}
+		
+		return savedProduct;
+		
+		
+	}
+}

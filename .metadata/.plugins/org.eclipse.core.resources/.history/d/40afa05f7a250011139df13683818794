@@ -1,0 +1,45 @@
+package com.sss.cartnest.admincontrollers;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sss.cartnest.adminservices.AdminProductService;
+import com.sss.cartnest.entities.Product;
+
+@RestController
+@RequestMapping("/admin/products")
+public class AdminProductController {
+	
+	@Autowired
+	private AdminProductService admin_prod_service;
+	
+	@PostMapping("/add")
+	public ResponseEntity<?> addProduct(@RequestBody Map<String, Object> prodRequest) {
+		try {
+		Product productAdded = admin_prod_service.addProductWithImage((String) prodRequest.get("name"),(String)  prodRequest.get("description"),Double.valueOf(String.valueOf(prodRequest.get("price"))),(int)prodRequest.get("stock"),(int)prodRequest.get("categoryId"),(String) prodRequest.get("imageUrl"));
+		return ResponseEntity.status(HttpStatus.CREATED).body(productAdded);
+		} catch (IllegalArgumentException e) {
+		return	ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+		}
+	}
+	
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> deleteProduct(@RequestBody Map<String, Integer> requestBody) {
+	    try {
+	        Integer productId = requestBody.get("productId");
+	        admin_prod_service.deleteProduct(productId);
+	        return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully");
+	    } catch (IllegalArgumentException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	    }
+	}
+}

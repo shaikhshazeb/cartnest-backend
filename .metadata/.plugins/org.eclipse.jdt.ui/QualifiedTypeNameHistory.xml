@@ -11,7 +11,6 @@
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.UserRepository"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.ProductRepository"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.ProductImageRepository"/>
-    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.entities.CartItems"/>
     <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
@@ -28,7 +27,6 @@
     <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.entities.OrderItem"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.OrderRepository"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.OrderItemRepository"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.CartRepository"/>
@@ -36,9 +34,16 @@
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Value"/>
     <fullyQualifiedTypeName name="jakarta.persistence.criteria.Order"/>
     <fullyQualifiedTypeName name="jakarta.transaction.Transactional"/>
+    <fullyQualifiedTypeName name="com.razorpay.Product"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.entities.User"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
 </qualifiedTypeNameHistroy>

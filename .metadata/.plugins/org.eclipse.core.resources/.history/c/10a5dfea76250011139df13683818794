@@ -1,0 +1,26 @@
+package com.sss.cartnest.adminservices;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.entities.Category;
+import com.sss.cartnest.repositories.CategoryRepository;
+
+@Service
+public class AdminProductService {
+	
+	@Autowired
+	private CategoryRepository ctg_repo;
+	
+	public void addProductWithImage(String name, String description, double price, int stock, int categoryId, String imageUrl) {
+		
+		Optional<Category> category = ctg_repo.findById(categoryId);
+		if(category.isEmpty()) {
+			throw new IllegalArgumentException("category Id not found");
+		}
+		
+		// Creating Product
+	}
+}
