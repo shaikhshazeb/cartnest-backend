@@ -1,7 +1,6 @@
 package com.sss.cartnest.adminservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,9 +17,6 @@ public class AdminUserService {
     @Autowired
     private CartRepository cart_repo;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
     @Transactional
     public void deleteUser(String username) {
         User user = user_repo.findByUsername(username)
@@ -28,13 +24,10 @@ public class AdminUserService {
 
         int userId = user.getUser_id();
 
-        // 1. jwt_tokens delete karo
-        jdbcTemplate.update("DELETE FROM jwt_tokens WHERE user_id = ?", userId);
-
-        // 2. cart delete karo
+        // Pehle cart data delete karo
         cart_repo.deleteAllCartItemsByUserId(userId);
 
-        // 3. user delete karo
+        // Phir user delete karo
         user_repo.deleteById(userId);
     }
 }
