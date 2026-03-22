@@ -6,7 +6,10 @@ import org.springframework.data.repository.query.Param;
 import com.sss.cartnest.entities.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
-    
+
     @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId")
     List<Product> findByCategoryId(@Param("categoryId") int categoryId);
+
+    @Query("SELECT p.category.categoryName FROM Product p WHERE p.productId = :productId")
+    String findCategoryNameByProductId(@Param("productId") int productId);
 }

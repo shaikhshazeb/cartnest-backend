@@ -1,0 +1,8 @@
+package com.sss.cartnest.admincontrollers;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class AdminBusinessController {
+
+}

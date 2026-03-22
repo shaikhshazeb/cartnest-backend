@@ -1,0 +1,5 @@
+package com.sss.cartnest.adminservices;
+
+public class AdminBusinessService {
+
+}
