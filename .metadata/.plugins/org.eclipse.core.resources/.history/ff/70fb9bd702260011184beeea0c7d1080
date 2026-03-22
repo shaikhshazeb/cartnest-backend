@@ -1,0 +1,17 @@
+package com.sss.cartnest.adminservices;
+
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.entities.User;
+import com.sss.cartnest.repositories.UserRepository;
+
+@Service
+public class AdminUserService {
+	
+	private UserRepository user_repo;
+	
+	public void deleteUser(int userId) {
+		User user = user_repo.findById(userId);
+		
+	}
+}

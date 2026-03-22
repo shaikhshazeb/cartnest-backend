@@ -1,0 +1,19 @@
+package com.sss.cartnest.adminservices;
+
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.sss.cartnest.entities.User;
+import com.sss.cartnest.repositories.UserRepository;
+
+@Service
+public class AdminUserService {
+	
+	private UserRepository user_repo;
+	
+	public void deleteUser(String username) {
+		Optional<User> user = user_repo.findByUsername(username);
+		
+	}
+}

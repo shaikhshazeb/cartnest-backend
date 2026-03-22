@@ -26,7 +26,6 @@ public class AdminUserController {
     @Autowired
     private UserRepository userRepo;
     
-    @Autowired
     private AdminUserService adminServe;
 
     // GET /admin/users/all

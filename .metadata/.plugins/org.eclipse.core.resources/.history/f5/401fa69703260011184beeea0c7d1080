@@ -6,16 +6,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sss.cartnest.adminservices.AdminUserService;
 import com.sss.cartnest.entities.User;
 import com.sss.cartnest.repositories.UserRepository;
 
@@ -25,9 +22,6 @@ public class AdminUserController {
 
     @Autowired
     private UserRepository userRepo;
-    
-    @Autowired
-    private AdminUserService adminServe;
 
     // GET /admin/users/all
     @GetMapping("/all")
@@ -85,19 +79,6 @@ public class AdminUserController {
             return ResponseEntity.ok(Map.of("message", "User unblocked successfully"));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
-        }
-    }
-    
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestBody Map<String, Object> request) {
-        try {
-            String username = (String) request.get("username");
-            adminServe.deleteUser(username);
-            return ResponseEntity.ok(Map.of("message", "User deleted successfully"));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
         }

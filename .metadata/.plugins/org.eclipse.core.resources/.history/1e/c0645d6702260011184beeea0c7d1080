@@ -1,0 +1,8 @@
+package com.sss.cartnest.adminservices;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class AdminUserService {
+
+}
