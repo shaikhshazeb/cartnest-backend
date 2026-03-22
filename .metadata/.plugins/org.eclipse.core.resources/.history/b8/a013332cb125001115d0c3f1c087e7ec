@@ -88,10 +88,10 @@ public class AdminBusinessController {
 	        List<Map<String, Object>> result = orders.stream().map(o -> {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("orderId", o.getOrderId());
-	            map.put("username", o.getUserId());       
+	            map.put("username", o.getUserId());        // getUser() nahi, getUserId()
 	            map.put("totalAmount", o.getTotalAmount());
 	            map.put("status", o.getStatus());
-	            map.put("createdAt", o.getCreated_at());  
+	            map.put("createdAt", o.getCreated_at());   // getCreated_at() with underscore
 	            return map;
 	        }).collect(Collectors.toList());
 	        return ResponseEntity.ok(result);

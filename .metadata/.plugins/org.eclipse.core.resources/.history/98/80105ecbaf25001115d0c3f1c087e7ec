@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.sss.cartnest.entities.Order;
 import com.sss.cartnest.entities.OrderStatus;
-import org.springframework.data.domain.Pageable;
 
 public interface OrderRepository extends JpaRepository<Order, String> {
 
@@ -28,7 +27,4 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 
 	@Query("SELECT o FROM Order o WHERE o.status = :status")
 	List<Order> findAllByStatus(@Param("status") OrderStatus status);
-	
-	@Query("SELECT o FROM Order o WHERE o.status = 'SUCCESS' ORDER BY o.createdAt DESC")
-	List<Order> findRecentOrders(Pageable pageable);
 }

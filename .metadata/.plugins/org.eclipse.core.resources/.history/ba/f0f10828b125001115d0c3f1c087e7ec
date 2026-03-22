@@ -1,13 +1,10 @@
 package com.sss.cartnest.admincontrollers;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sss.cartnest.adminservices.AdminBusinessService;
-import com.sss.cartnest.entities.Order;
 import com.sss.cartnest.repositories.OrderRepository;
 
 @RestController
@@ -88,10 +84,10 @@ public class AdminBusinessController {
 	        List<Map<String, Object>> result = orders.stream().map(o -> {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("orderId", o.getOrderId());
-	            map.put("username", o.getUserId());       
+	            map.put("username", o.getUser().getUsername());
 	            map.put("totalAmount", o.getTotalAmount());
 	            map.put("status", o.getStatus());
-	            map.put("createdAt", o.getCreated_at());  
+	            map.put("createdAt", o.getCreatedAt());
 	            return map;
 	        }).collect(Collectors.toList());
 	        return ResponseEntity.ok(result);
