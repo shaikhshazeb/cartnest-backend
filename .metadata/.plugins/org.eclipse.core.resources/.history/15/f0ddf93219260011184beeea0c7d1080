@@ -1,0 +1,46 @@
+package com.sss.cartnest.admincontrollers;
+
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sss.cartnest.entities.Order;
+import com.sss.cartnest.entities.OrderStatus;
+import com.sss.cartnest.repositories.OrderRepository;
+
+@RestController
+@RequestMapping("/admin/orders")
+public class AdminOrderController {
+
+    @Autowired
+    private OrderRepository orderRepo;
+
+    // PUT /admin/orders/update-status
+    @PutMapping("/update-status")
+    public ResponseEntity<?> updateOrderStatus(@RequestBody Map<String, String> request) {
+        try {
+            String orderId = request.get("orderId");
+            String status = request.get("status");
+
+            if (orderId == null || status == null)
+                return ResponseEntity.badRequest().body(Map.of("error", "orderId and status are required"));
+
+            Order order = orderRepo.findById(orderId)
+                    .orElseThrow(() -> new IllegalArgumentException("Order not found: " + orderId));
+
+            order.setStatus(OrderStatus.valueOf(status.toUpperCase()));
+            orderRepo.save(order);
+
+            return ResponseEntity.ok(Map.of("message", "Order status updated to " + status));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
+        }
+    }
+}
