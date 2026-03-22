@@ -2,10 +2,8 @@ package com.sss.cartnest.adminservices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.sss.cartnest.entities.User;
-import com.sss.cartnest.repositories.CartRepository;
 import com.sss.cartnest.repositories.UserRepository;
 
 @Service
@@ -14,20 +12,10 @@ public class AdminUserService {
     @Autowired
     private UserRepository user_repo;
 
-    @Autowired
-    private CartRepository cart_repo;
-
-    @Transactional
     public void deleteUser(String username) {
         User user = user_repo.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
 
-        int userId = user.getUser_id();
-
-        // Pehle cart data delete karo
-        cart_repo.deleteAllCartItemsByUserId(userId);
-
-        // Phir user delete karo
-        user_repo.deleteById(userId);
+        user_repo.deleteById(user.getUser_id());
     }
 }

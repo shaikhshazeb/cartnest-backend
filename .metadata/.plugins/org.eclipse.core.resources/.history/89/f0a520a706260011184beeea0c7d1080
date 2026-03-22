@@ -25,7 +25,7 @@ public class AdminUserService {
         int userId = user.getUser_id();
 
         // Pehle cart data delete karo
-        cart_repo.deleteAllCartItemsByUserId(userId);
+        cart_repo.deleteByUserId(userId);
 
         // Phir user delete karo
         user_repo.deleteById(userId);
