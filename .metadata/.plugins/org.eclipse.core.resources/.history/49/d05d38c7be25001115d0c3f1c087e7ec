@@ -31,6 +31,4 @@ public interface OrderRepository extends JpaRepository<Order, String> {
 	
 	@Query("SELECT o FROM Order o WHERE o.status = 'SUCCESS' ORDER BY o.createdAt DESC")
 	List<Order> findRecentOrders(Pageable pageable);
-	
-	List<Order> findAllByOrderByCreated_atDesc();
 }

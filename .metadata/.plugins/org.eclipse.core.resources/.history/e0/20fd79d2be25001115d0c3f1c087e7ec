@@ -99,23 +99,4 @@ public class AdminBusinessController {
 	        return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
 	    }
 	}
-	
-	@GetMapping("/all-orders")
-	public ResponseEntity<?> getAllOrders() {
-	    try {
-	        List<Order> orders = orderRepo.findAllByOrderByCreated_atDesc();
-	        List<Map<String, Object>> result = orders.stream().map(o -> {
-	            Map<String, Object> map = new HashMap<>();
-	            map.put("orderId", o.getOrderId());
-	            map.put("username", o.getUserId());
-	            map.put("totalAmount", o.getTotalAmount());
-	            map.put("status", o.getStatus());
-	            map.put("createdAt", o.getCreated_at());
-	            return map;
-	        }).collect(Collectors.toList());
-	        return ResponseEntity.ok(result);
-	    } catch (Exception e) {
-	        return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
-	    }
-	}
 }
