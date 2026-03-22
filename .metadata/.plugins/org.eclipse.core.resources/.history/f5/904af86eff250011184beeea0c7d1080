@@ -103,7 +103,7 @@ public class AdminBusinessController {
 	@GetMapping("/all-orders")
 	public ResponseEntity<?> getAllOrders() {
 	    try {
-	    	List<Order> orders = orderRepo.findAllOrdersSortedByDate();
+	        List<Order> orders = orderRepo.findAllByOrderByCreated_atDesc();
 	        List<Map<String, Object>> result = orders.stream().map(o -> {
 	            Map<String, Object> map = new HashMap<>();
 	            map.put("orderId", o.getOrderId());
