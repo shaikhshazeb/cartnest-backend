@@ -1,0 +1,86 @@
+package com.sss.cartnest.admincontrollers;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.sss.cartnest.entities.User;
+import com.sss.cartnest.repositories.UserRepository;
+
+@RestController
+@RequestMapping("/admin/users")
+public class AdminUserController {
+
+    @Autowired
+    private UserRepository userRepo;
+
+    // GET /admin/users/all
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllUsers() {
+        try {
+            List<User> users = userRepo.findAll();
+            List<Map<String, Object>> result = users.stream().map(u -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("userId", u.getUser_id());
+                map.put("username", u.getUsername());
+                map.put("email", u.getEmail());
+                map.put("role", u.getRole());
+                map.put("isBlocked", u.isBlocked());
+                map.put("createdAt", u.getCreated_at());
+                return map;
+            }).collect(Collectors.toList());
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    // PUT /admin/users/block
+    @PutMapping("/block")
+    public ResponseEntity<?> blockUser(@RequestBody Map<String, Object> request) {
+        try {
+            String username = (String) request.get("username");
+            User user = userRepo.findByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
+
+            user.setBlocked(true);
+            user.setUpdated_at(java.time.LocalDateTime.now());
+            userRepo.save(user);
+
+            return ResponseEntity.ok(Map.of("message", "User blocked successfully"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    // PUT /admin/users/unblock
+    @PutMapping("/unblock")
+    public ResponseEntity<?> unblockUser(@RequestBody Map<String, Object> request) {
+        try {
+            String username = (String) request.get("username");
+            User user = userRepo.findByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
+
+            user.setBlocked(false);
+            user.setUpdated_at(java.time.LocalDateTime.now());
+            userRepo.save(user);
+
+            return ResponseEntity.ok(Map.of("message", "User unblocked successfully"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
+        }
+    }
+}
