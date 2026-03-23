@@ -14,7 +14,6 @@ import com.sss.cartnest.entities.OrderItem;
 import com.sss.cartnest.repositories.OrderItemRepository;
 import com.sss.cartnest.repositories.OrderRepository;
 import com.sss.cartnest.repositories.ProductRepository;
-import com.sss.cartnest.repositories.UserRepository;
 
 @Service
 public class AdminBusinessService {
@@ -59,19 +58,13 @@ public class AdminBusinessService {
 	}
 
 	// ================= OVERALL =================
-	@Autowired
-	private UserRepository user_repo;
-
 	public Map<String, Object> calculateOverallBusiness() {
-	    BigDecimal totalBusiness = order_repo.calculateOverallBusiness();
-	    long totalUsers = user_repo.count();
-	    long totalOrders = order_repo.count();
 
-	    Map<String, Object> businessReport = new HashMap<>();
-	    businessReport.put("totalBusiness", totalBusiness != null ? totalBusiness.doubleValue() : 0.0);
-	    businessReport.put("totalUsers", totalUsers);
-	    businessReport.put("totalOrders", totalOrders);
-	    return businessReport;
+		BigDecimal totalBusiness = order_repo.calculateOverallBusiness();
+
+		Map<String, Object> businessReport = new HashMap<>();
+		businessReport.put("totalBusiness", totalBusiness != null ? totalBusiness.doubleValue() : 0.0);
+		return businessReport;
 	}
 
 	// ================= HELPER =================
