@@ -1,6 +1,5 @@
 package com.sss.cartnest.admincontrollers;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sss.cartnest.adminservices.AdminProductService;
 import com.sss.cartnest.entities.Product;
-import com.sss.cartnest.repositories.ProductRepository;
 
 @RestController
 @RequestMapping("/admin/products")
@@ -23,8 +21,6 @@ public class AdminProductController {
 	
 	@Autowired
 	private AdminProductService admin_prod_service;
-	
-	private ProductRepository prod_repo;
 	
 	@PostMapping("/add")
 	public ResponseEntity<?> addProduct(@RequestBody Map<String, Object> prodRequest) {
@@ -54,30 +50,6 @@ public class AdminProductController {
 	        return ResponseEntity.ok(updated);
 	    } catch (IllegalArgumentException e) {
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-	    }
-	}
-	
-	// PUT /admin/products/update-stock
-	@PutMapping("/update-stock")
-	public ResponseEntity<?> updateStock(@RequestBody Map<String, Object> request) {
-	    try {
-	        int productId = (int) request.get("productId");
-	        int newStock = (int) request.get("stock");
-
-	        // DB se product dhundo
-	        Product product = prod_repo.findById(productId)
-	                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
-
-	        // Stock update karo
-	        product.setStock(newStock);
-	        product.setUpdated_at(LocalDateTime.now());
-	        prod_repo.save(product);
-
-	        return ResponseEntity.ok(Map.of("message", "Stock updated successfully"));
-	    } catch (IllegalArgumentException e) {
-	        return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
-	    } catch (Exception e) {
-	        return ResponseEntity.status(500).body(Map.of("error", e.getMessage()));
 	    }
 	}
 }
