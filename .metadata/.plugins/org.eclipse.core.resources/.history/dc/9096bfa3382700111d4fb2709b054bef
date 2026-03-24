@@ -24,7 +24,6 @@ public class AdminProductController {
 	@Autowired
 	private AdminProductService admin_prod_service;
 	
-	@Autowired
 	private ProductRepository prod_repo;
 	
 	@PostMapping("/add")
