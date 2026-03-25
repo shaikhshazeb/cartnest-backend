@@ -50,10 +50,10 @@
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.UserRepository"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.entities.User"/>
     <fullyQualifiedTypeName name="java.util.Optional"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.DeleteMapping"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.adminservices.AdminUserService"/>
     <fullyQualifiedTypeName name="com.sss.cartnest.repositories.ProductRepository"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
 </qualifiedTypeNameHistroy>
